@@ -14,7 +14,7 @@ from coffee_sales;
 select *
 from coffee_sales1;
 
--- Finding out the total sales of each drink offered to determine highest and lowest selling items
+-- 1. Finding out the total sales of each drink offered to determine highest and lowest selling items
 
 select distinct coffee_name, money
 from coffee_sales1
@@ -36,7 +36,8 @@ from total_revenue;
 -- The total sales revenue for was $83646.1, with the highest-selling coffee being 'Latte' at $22002.66 and the lowest-selling coffee being 'Espresso' at $2035.
 
 
--- Finding out which seasons have the highest sale volumes. Because the dataset begins at March 2024, I will start from March.
+-- 2. Finding out which seasons have the highest sale volumes
+-- Because the dataset begins at March 2024, I will start from March.
 
 select *
 from coffee_sales1;
@@ -55,7 +56,7 @@ where date between '2024-09-19' and '2024-12-23'; -- Autumn revenue was $32904.
 
 -- Autumn sale revenue is shown to be the highest.
 
--- Finding out the number of unique customers this year using the distinct card values. 
+-- 3. Finding out the number of unique customers this year using the distinct card values 
 -- While there is no customer ID, we are given credit/debit card values. Because there were a few cash-paying customers, I'll separate the two mediums of payments. We cannot be sure that the same customer did not use both card and cash to pay for multiple orders, but because the vast majority of customers used card payments, it should provide a general overview of unique customers.
 
 select count(distinct card)
@@ -64,10 +65,10 @@ from coffee_sales1;
 select count(cash_type)
 from coffee_sales1
 where cash_type = "cash";
- -- The total number of distinct card payments are 1038, while the number of cash payments were 89, coming to a combined total of 1127 payments. The total number of orders was 2623, and while we cannot be sure returning customers did not use different cards or use both card/cash, we can at the very least assume a sizable number of returning customers. 
+ -- The total number of distinct card payments are 1038, while the number of cash payments were 89, coming to a combined total of 1127 payments. The total number of orders was 2623, and while we cannot be sure returning customers did not use different cards or use both card/cash, we can at the very least reason a sizable number of returning customers. 
  
  
--- Finding out customer retention rate between seasons.
+-- 4. Finding out customer retention rate between seasons
 
 -- Retention rate between spring and summer
 with spring_customers as (
@@ -120,4 +121,3 @@ from summer_customers
 left join retained_customers
 on summer_customers.card = retained_customers.card;
 -- Retention rate between summer and winter is 15.3%.
-
